@@ -86,6 +86,11 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg)
 .kpi-card.accent{border-left:3px solid var(--primary)}
 .kpi-card.success-accent{border-left:3px solid var(--success)}
 .kpi-card.warning-accent{border-left:3px solid var(--warning)}
+.kpi-card.highlight-month{background:linear-gradient(135deg,rgba(32,128,141,0.08) 0%,rgba(32,128,141,0.02) 100%);border:1px solid var(--primary);border-left:4px solid var(--primary);position:relative;overflow:hidden}
+.kpi-card.highlight-month::before{content:'';position:absolute;top:-20px;right:-20px;width:80px;height:80px;background:radial-gradient(circle,rgba(32,128,141,0.15) 0%,transparent 70%);pointer-events:none}
+.kpi-card.highlight-month .kpi-label{color:var(--primary);font-weight:700}
+.kpi-card.highlight-month .kpi-value{color:var(--primary)}
+.kpi-card.highlight-month .kpi-badge{display:inline-block;background:var(--primary);color:#fff;font-size:0.62rem;font-weight:700;padding:2px 7px;border-radius:10px;margin-left:6px;letter-spacing:0.3px;text-transform:uppercase}
 
 /* SECTION */
 .section-title{font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
@@ -2272,15 +2277,15 @@ const monthlyRevenueData = [
   {mes:'2025-08',ventas:4547366.51,txns:109,clientes:38},
   {mes:'2025-09',ventas:3412209.9,txns:96,clientes:36},
   {mes:'2025-10',ventas:7228392.3,txns:105,clientes:35},
-  {mes:'2025-11',ventas:6892496.2,txns:123,clientes:46},
-  {mes:'2025-12',ventas:3753088.7,txns:91,clientes:38},
-  {mes:'2026-01',ventas:5672133.6,txns:111,clientes:46},
+  {mes:'2025-11',ventas:6802496.70,txns:123,clientes:46},
+  {mes:'2025-12',ventas:3755063.70,txns:91,clientes:38},
+  {mes:'2026-01',ventas:5672153.60,txns:111,clientes:46},
   {mes:'2026-02',ventas:2962638.8,txns:111,clientes:39},
-  {mes:'2026-03',ventas:9616253.77,txns:82,clientes:30},
-  {mes:'2026-04',ventas:4469894.94,txns:61,clientes:33}
+  {mes:'2026-03',ventas:9616253.80,txns:82,clientes:30},
+  {mes:'2026-04',ventas:12193240.90,txns:61,clientes:33}
 ];
 const revMonthNames = {'2023-01':'Ene 23','2023-02':'Feb 23','2023-03':'Mar 23','2023-04':'Abr 23','2023-05':'May 23','2023-06':'Jun 23','2023-07':'Jul 23','2023-08':'Ago 23','2023-09':'Sep 23','2023-10':'Oct 23','2023-11':'Nov 23','2023-12':'Dic 23','2024-01':'Ene 24','2024-02':'Feb 24','2024-03':'Mar 24','2024-04':'Abr 24','2024-05':'May 24','2024-06':'Jun 24','2024-07':'Jul 24','2024-08':'Ago 24','2024-09':'Sep 24','2024-10':'Oct 24','2024-11':'Nov 24','2024-12':'Dic 24','2025-01':'Ene 25','2025-02':'Feb 25','2025-03':'Mar 25','2025-04':'Abr 25','2025-05':'May 25','2025-06':'Jun 25','2025-07':'Jul 25','2025-08':'Ago 25','2025-09':'Sep 25','2025-10':'Oct 25','2025-11':'Nov 25','2025-12':'Dic 25','2026-01':'Ene 26','2026-02':'Feb 26','2026-03':'Mar 26','2026-04':'Abr 26'};
-const totalVentasGeneral = 116921129.03;
+const totalVentasGeneral = 124556470.52;
 const totalCxCGeneral = 23411725.23;
 
 const pedimentoData = [{"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202533732", "pedimento": "25161924S003869", "estatus": "CONSTANCIA VIGENTE", "inicio": "11/09/2025", "vencimiento": "11/03/2026", "importe_inicial": 15000.0, "importe_vigente": 15853.37}, {"contrato": "00333450", "subcontrato": "00003482", "razon_social": "CECI TEXTI SA DE CV", "folio": "202533738", "pedimento": "25161924S003561", "estatus": "CONSTANCIA VIGENTE", "inicio": "11/09/2025", "vencimiento": "11/03/2026", "importe_inicial": 12000.0, "importe_vigente": 12291.74}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202536676", "pedimento": "25161924S004031", "estatus": "CONSTANCIA VIGENTE", "inicio": "30/09/2025", "vencimiento": "30/03/2026", "importe_inicial": 13000.0, "importe_vigente": 13260.8}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202536677", "pedimento": "25161924S004032", "estatus": "CONSTANCIA VIGENTE", "inicio": "30/09/2025", "vencimiento": "30/03/2026", "importe_inicial": 21000.0, "importe_vigente": 21421.61}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202541629", "pedimento": "25161924S004261", "estatus": "CONSTANCIA VIGENTE", "inicio": "29/10/2025", "vencimiento": "29/04/2026", "importe_inicial": 16000.0, "importe_vigente": 16233.78}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202541630", "pedimento": "25161924S004262", "estatus": "CONSTANCIA VIGENTE", "inicio": "29/10/2025", "vencimiento": "29/04/2026", "importe_inicial": 16100.0, "importe_vigente": 16355.18}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202543165", "pedimento": "25161641S100013", "estatus": "CONSTANCIA VIGENTE", "inicio": "20/11/2025", "vencimiento": "20/05/2026", "importe_inicial": 17200.0, "importe_vigente": 17392.03}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202547536", "pedimento": "25161641S100016", "estatus": "CONSTANCIA VIGENTE", "inicio": "03/12/2025", "vencimiento": "03/06/2026", "importe_inicial": 38000.0, "importe_vigente": 38340.35}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202603801", "pedimento": "26161641E100130", "estatus": "CONSTANCIA VIGENTE", "inicio": "21/01/2026", "vencimiento": "21/07/2026", "importe_inicial": 130000.0, "importe_vigente": 130144.56}, {"contrato": "00333450", "subcontrato": "00002542", "razon_social": "COMERCIALIZADORA COBALMA SA DE CV", "folio": "202603802", "pedimento": "26161641E100110", "estatus": "CONSTANCIA VIGENTE", "inicio": "21/01/2026", "vencimiento": "21/07/2026", "importe_inicial": 37000.0, "importe_vigente": 37041.09}];
@@ -2510,6 +2515,7 @@ function openDrilldown(catName) {
 
   // Revenue KPIs
   const revenueKpis = [
+    {label:'Ventas del Mes Actual <span class="kpi-badge">Abr 26</span>',value:'$12.19M',sub:'Récord histórico mensual • +27% vs Mar 2026',cls:'highlight-month'},
     {label:'Ventas Totales',value:fmtMoney(totalVentasGeneral),sub:'Ene 2023 — Abr 2026 • 3,095 transacciones',cls:'accent'},
     {label:'Cuentas por Cobrar',value:fmtMoney(totalCxCGeneral),sub:'30 clientes • Saldo al 25/04',cls:'warning-accent'},
     {label:'Clientes Activos',value:'28',sub:'Con saldo en cartera',cls:'success-accent'},
@@ -6007,12 +6013,12 @@ const crmMonthlyRevenueData = [
   {mes:'2025-08',ventas:4547366.51,txns:109,clientes:38},
   {mes:'2025-09',ventas:3412209.9,txns:96,clientes:36},
   {mes:'2025-10',ventas:7228392.3,txns:105,clientes:35},
-  {mes:'2025-11',ventas:6892496.2,txns:123,clientes:46},
-  {mes:'2025-12',ventas:3753088.7,txns:91,clientes:38},
-  {mes:'2026-01',ventas:5672133.6,txns:111,clientes:46},
+  {mes:'2025-11',ventas:6802496.70,txns:123,clientes:46},
+  {mes:'2025-12',ventas:3755063.70,txns:91,clientes:38},
+  {mes:'2026-01',ventas:5672153.60,txns:111,clientes:46},
   {mes:'2026-02',ventas:2962638.8,txns:111,clientes:39},
-  {mes:'2026-03',ventas:9616253.77,txns:82,clientes:30},
-  {mes:'2026-04',ventas:4469894.94,txns:61,clientes:33}
+  {mes:'2026-03',ventas:9616253.80,txns:82,clientes:30},
+  {mes:'2026-04',ventas:12193240.90,txns:61,clientes:33}
 ];
 
 
