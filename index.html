@@ -66,7 +66,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg)
 .bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:100;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -2px 10px rgba(0,0,0,0.06)}
 .bottom-nav-inner{display:flex;align-items:center;height:56px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none;padding:0 2px}
 .bottom-nav-inner::-webkit-scrollbar{display:none}
-.bottom-nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:none;background:none;cursor:pointer;color:var(--text-muted);font-family:inherit;font-size:0.58rem;font-weight:500;min-width:0;width:calc(100%/11);min-height:44px;padding:4px 1px;transition:color 0.2s;-webkit-tap-highlight-color:transparent;flex:1 0 auto}
+.bottom-nav-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border:none;background:none;cursor:pointer;color:var(--text-muted);font-family:inherit;font-size:0.58rem;font-weight:500;min-width:0;width:calc(100%/12);min-height:44px;padding:4px 1px;transition:color 0.2s;-webkit-tap-highlight-color:transparent;flex:1 0 auto}
 .bottom-nav-btn .nav-icon{font-size:1.15rem;line-height:1}
 .bottom-nav-btn.active{color:var(--primary)}
 .bottom-nav-btn:active{transform:scale(0.95)}
@@ -889,6 +889,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
       <button class="nav-tab" data-tab="clientes">Clientes</button>
       <button class="nav-tab" data-tab="logistica">Logística</button>
       <button class="nav-tab" data-tab="costos">Costos</button>
+      <button class="nav-tab" data-tab="tesoreria">Tesorería</button>
       <button class="nav-tab" data-tab="crm">CRM</button>
     </nav>
   </div>
@@ -1147,6 +1148,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
     <button class="bottom-nav-btn" data-tab="clientes"><span class="nav-icon">👥</span>Clientes</button>
     <button class="bottom-nav-btn" data-tab="logistica"><span class="nav-icon">🌍</span>Rutas</button>
     <button class="bottom-nav-btn" data-tab="costos"><span class="nav-icon">🧮</span>Costos</button>
+    <button class="bottom-nav-btn" data-tab="tesoreria"><span class="nav-icon">🏦</span>Tesor.</button>
     <button class="bottom-nav-btn" data-tab="crm"><span class="nav-icon">🤝</span>CRM</button>
   </div>
 </nav>
@@ -2167,10 +2169,46 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 
 </div>
 
+<!-- ===== TESORERÍA TAB ===== -->
+<div class="tab-content" id="tab-tesoreria">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px">
+    <h2 class="section-title" style="margin-bottom:0"><span class="accent-bar"></span> Tesorería — Liquidez y Crédito</h2>
+    <div style="font-size:0.78rem;color:var(--text-muted)">Actualizado: <span id="tesoreriaUpdated">30/04/2026</span></div>
+  </div>
+
+  <div class="kpi-grid" id="tesoreriaKpis"></div>
+
+  <div class="chart-grid" style="display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:18px">
+    <div class="chart-card">
+      <h3>Bancos — Saldos disponibles (MXN)</h3>
+      <div class="table-scroll"><table class="data-table" id="bancosTable"></table></div>
+    </div>
+    <div class="chart-card">
+      <h3>Compromisos mensuales fijos</h3>
+      <div class="table-scroll"><table class="data-table" id="compromisosTable"></table></div>
+    </div>
+  </div>
+
+  <h3 style="font-size:0.95rem;font-weight:700;color:var(--text);margin:20px 0 12px;display:flex;align-items:center;gap:8px"><span class="accent-bar"></span> Utilización de Líneas de Crédito</h3>
+  <div id="creditLinesGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px"></div>
+
+  <div class="chart-card" style="margin-bottom:18px">
+    <h3>Calendario de pagos BANBAJIO 2025–2028</h3>
+    <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:10px">Próximo pago: <strong id="banbajioNextDate" style="color:var(--text)"></strong> — <strong id="banbajioNextAmount" style="color:var(--text)"></strong></div>
+    <div style="position:relative;height:280px"><canvas id="banbajioChart"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <h3>Detalle de amortización BANBAJIO</h3>
+    <div class="table-scroll" style="max-height:380px"><table class="data-table" id="amortTable"></table></div>
+  </div>
+
+</div>
+
 </div><!-- .main -->
 
 <footer>
-  COBALMA — Panel de Control v3 &bull; Datos actualizados al 11 de abril de 2026 &bull; Sesión: <span id="sessionTime"></span> &bull;
+  COBALMA — Panel de Control v3 &bull; Datos actualizados al 30 de abril de 2026 &bull; Sesión: <span id="sessionTime"></span> &bull;
   <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">
     Creado con Perplexity Computer
   </a>
@@ -7165,6 +7203,177 @@ document.addEventListener('click', function(e) {
     setTimeout(function() {
       if (typeof initCRM === 'function') initCRM();
     }, 100);
+  }
+});
+
+// ===== TESORERÍA TAB =====
+const tesoreriaData = {
+  updated: '30/04/2026',
+  bancos: [
+    { name: 'BBVA', tipo: 'Cuenta operativa', saldo: 85733.54 },
+    { name: 'BANBAJIO', tipo: 'Cuenta operativa', saldo: 213559.64 },
+    { name: 'MONEX', tipo: 'Inversión diaria', saldo: 0 }
+  ],
+  bancosUSD: [
+    { name: 'USD MONEX', saldo: 0 },
+    { name: 'USD BANBAJIO', saldo: 0 }
+  ],
+  compromisos: [
+    { dia: '5 de cada mes', concepto: 'Abono Crédito BANBAJIO', monto: 81418.96 },
+    { dia: '15 de cada mes', concepto: 'Pago Volvo', monto: 29790.00 }
+  ],
+  creditLines: [
+    { name: 'BANBAJIO Revolvente', limit: 1500000, used: 1065942.09, color: '#A84B2F' },
+    { name: 'MONEX Revolvente', limit: 1600000, used: 808182.91, color: '#1B474D' },
+    { name: 'BANBAJIO Crédito Simple', limit: 122222.16, used: 122222.16, color: '#6B6A65', note: 'Saldo en crédito (sin línea revolvente)' }
+  ],
+  banbajioPagos: [
+    { fecha: '2026-05-08', monto: 72888.39 },
+    { fecha: '2026-06-10', monto: 73241.56 },
+    { fecha: '2026-07-13', monto: 72399.37 },
+    { fecha: '2026-08-15', monto: 71041.00 },
+    { fecha: '2026-09-17', monto: 71693.02 },
+    { fecha: '2026-10-20', monto: 68487.26 },
+    { fecha: '2026-11-22', monto: 69030.60 },
+    { fecha: '2026-12-25', monto: 68595.93 },
+    { fecha: '2027-01-27', monto: 66585.54 },
+    { fecha: '2027-03-01', monto: 66504.03 },
+    { fecha: '2027-04-03', monto: 64683.82 },
+    { fecha: '2027-05-06', monto: 64819.66 },
+    { fecha: '2027-06-08', monto: 63705.79 },
+    { fecha: '2027-07-11', monto: 63624.29 },
+    { fecha: '2027-08-13', monto: 61641.07 },
+    { fecha: '2027-09-15', monto: 61450.89 },
+    { fecha: '2027-10-18', monto: 60771.71 },
+    { fecha: '2027-11-20', monto: 59494.84 },
+    { fecha: '2027-12-23', monto: 58924.32 },
+    { fecha: '2028-01-25', monto: 58082.13 },
+    { fecha: '2028-02-27', monto: 57185.60 },
+    { fecha: '2028-03-31', monto: 56479.09 }
+  ]
+};
+
+function renderTesoreria() {
+  const data = tesoreriaData;
+  document.getElementById('tesoreriaUpdated').textContent = data.updated;
+
+  // KPIs
+  const totalBancos = data.bancos.reduce((s, b) => s + b.saldo, 0);
+  const totalCompromisos = data.compromisos.reduce((s, c) => s + c.monto, 0);
+  const totalLimit = data.creditLines.reduce((s, l) => s + (l.limit || 0), 0);
+  const totalUsed = data.creditLines.reduce((s, l) => s + (l.used || 0), 0);
+  const totalAvail = totalLimit - totalUsed;
+  const liquidezTotal = totalBancos + (data.creditLines[0].limit - data.creditLines[0].used) + (data.creditLines[1].limit - data.creditLines[1].used);
+  const utilPct = totalLimit > 0 ? totalUsed / totalLimit : 0;
+
+  const kpiHtml = [
+    { label: 'Saldo en bancos', value: fmtMoney(totalBancos), sub: data.bancos.length + ' cuentas operativas', cls: 'success-accent' },
+    { label: 'Liquidez disponible', value: fmtMoney(liquidezTotal), sub: 'Bancos + líneas revolventes', cls: 'accent' },
+    { label: 'Crédito disponible', value: fmtMoney(totalAvail), sub: 'De ' + fmtMoney(totalLimit) + ' total', cls: utilPct >= 0.7 ? 'warning-accent' : 'success-accent' },
+    { label: 'Utilización crédito', value: fmtP(utilPct), sub: fmtMoney(totalUsed) + ' dispuesto', cls: utilPct >= 0.7 ? 'warning-accent' : 'accent' },
+    { label: 'Compromisos mensuales', value: fmtMoney(totalCompromisos), sub: data.compromisos.length + ' pagos fijos', cls: 'warning-accent' },
+    { label: 'Próximo pago BANBAJIO', value: fmtMoney(data.banbajioPagos[0].monto), sub: new Date(data.banbajioPagos[0].fecha + 'T00:00:00').toLocaleDateString('es-MX', {day:'numeric', month:'short', year:'numeric'}), cls: 'accent' }
+  ].map(k => '<div class="kpi-card ' + k.cls + '"><div class="kpi-label">' + k.label + '</div><div class="kpi-value">' + k.value + '</div><div class="kpi-sub">' + k.sub + '</div></div>').join('');
+  document.getElementById('tesoreriaKpis').innerHTML = kpiHtml;
+
+  // Bancos table
+  let bancosRows = '<thead><tr><th>Banco</th><th>Tipo</th><th class="num">Saldo MXN</th><th class="num">% del total</th></tr></thead><tbody>';
+  data.bancos.forEach(b => {
+    const pct = totalBancos > 0 ? b.saldo / totalBancos : 0;
+    bancosRows += '<tr><td><strong>' + b.name + '</strong></td><td style="color:var(--text-muted)">' + b.tipo + '</td><td class="num" style="font-variant-numeric:tabular-nums">' + fmtMoney(b.saldo) + '</td><td class="num" style="font-variant-numeric:tabular-nums;color:var(--text-muted)">' + fmtP(pct) + '</td></tr>';
+  });
+  bancosRows += '<tr style="background:var(--bg);font-weight:700"><td>TOTAL MXN</td><td></td><td class="num" style="font-variant-numeric:tabular-nums">' + fmtMoney(totalBancos) + '</td><td class="num">100%</td></tr>';
+  const totalUSD = data.bancosUSD.reduce((s, b) => s + b.saldo, 0);
+  bancosRows += '<tr style="color:var(--text-muted)"><td>USD (MONEX + BANBAJIO)</td><td>Cuentas en dólares</td><td class="num" style="font-variant-numeric:tabular-nums">$' + totalUSD.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}) + ' USD</td><td class="num">—</td></tr>';
+  bancosRows += '</tbody>';
+  document.getElementById('bancosTable').innerHTML = bancosRows;
+
+  // Compromisos table
+  let compRows = '<thead><tr><th>Fecha</th><th>Concepto</th><th class="num">Monto MXN</th></tr></thead><tbody>';
+  data.compromisos.forEach(c => {
+    compRows += '<tr><td>' + c.dia + '</td><td><strong>' + c.concepto + '</strong></td><td class="num" style="font-variant-numeric:tabular-nums">' + fmtMoney(c.monto) + '</td></tr>';
+  });
+  compRows += '<tr style="background:var(--bg);font-weight:700"><td colspan="2">TOTAL MENSUAL</td><td class="num" style="font-variant-numeric:tabular-nums">' + fmtMoney(totalCompromisos) + '</td></tr></tbody>';
+  document.getElementById('compromisosTable').innerHTML = compRows;
+
+  // Credit lines
+  let clHtml = '';
+  data.creditLines.forEach(l => {
+    const pct = l.limit > 0 ? l.used / l.limit : 0;
+    const avail = (l.limit || 0) - (l.used || 0);
+    const barColor = pct >= 0.85 ? '#dc3545' : pct >= 0.6 ? '#A84B2F' : l.color;
+    clHtml += '<div style="background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)">';
+    clHtml += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-weight:700;font-size:0.92rem;color:var(--text)">' + l.name + '</div><div style="font-size:0.78rem;font-weight:700;color:' + barColor + '">' + fmtP(pct) + '</div></div>';
+    clHtml += '<div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:12px">Límite: <strong style="color:var(--text)">' + fmtMoney(l.limit) + '</strong></div>';
+    clHtml += '<div style="height:10px;background:#EEE;border-radius:6px;overflow:hidden;margin-bottom:10px"><div style="width:' + (pct*100).toFixed(1) + '%;height:100%;background:' + barColor + ';transition:width 0.5s"></div></div>';
+    clHtml += '<div style="display:flex;justify-content:space-between;font-size:0.78rem"><div><div style="color:var(--text-muted);font-size:0.7rem">DISPUESTO</div><div style="font-weight:700;color:var(--text)">' + fmtMoney(l.used) + '</div></div>';
+    clHtml += '<div style="text-align:right"><div style="color:var(--text-muted);font-size:0.7rem">DISPONIBLE</div><div style="font-weight:700;color:' + (avail > 0 ? 'var(--success)' : 'var(--text-muted)') + '">' + fmtMoney(avail) + '</div></div></div>';
+    if (l.note) clHtml += '<div style="margin-top:10px;font-size:0.7rem;color:var(--text-faint);font-style:italic">' + l.note + '</div>';
+    clHtml += '</div>';
+  });
+  document.getElementById('creditLinesGrid').innerHTML = clHtml;
+
+  // Next BANBAJIO payment
+  const today = new Date();
+  const nextPay = data.banbajioPagos.find(p => new Date(p.fecha + 'T00:00:00') >= today) || data.banbajioPagos[0];
+  document.getElementById('banbajioNextDate').textContent = new Date(nextPay.fecha + 'T00:00:00').toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'});
+  document.getElementById('banbajioNextAmount').textContent = fmtMoney(nextPay.monto);
+
+  // BANBAJIO chart
+  if (window.banbajioChartInst) try { window.banbajioChartInst.destroy(); } catch(e) {}
+  const ctx = document.getElementById('banbajioChart');
+  if (ctx) {
+    const labels = data.banbajioPagos.map(p => {
+      const d = new Date(p.fecha + 'T00:00:00');
+      return d.toLocaleDateString('es-MX', { month: 'short', year: '2-digit' });
+    });
+    const values = data.banbajioPagos.map(p => p.monto);
+    const colors = data.banbajioPagos.map(p => new Date(p.fecha + 'T00:00:00') < today ? '#A0A09B' : '#1B474D');
+    window.banbajioChartInst = new Chart(ctx.getContext('2d'), {
+      type: 'bar',
+      data: { labels: labels, datasets: [{ label: 'Pago mensual MXN', data: values, backgroundColor: colors, borderRadius: 4, barThickness: 14 }]},
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(40,37,29,0.95)', padding: 10, cornerRadius: 6,
+            callbacks: {
+              title: function(items) { return new Date(data.banbajioPagos[items[0].dataIndex].fecha + 'T00:00:00').toLocaleDateString('es-MX', {day:'numeric', month:'long', year:'numeric'}); },
+              label: function(item) { return 'Pago: ' + fmtMoney(item.parsed.y); }
+            }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k', font: { size: 10 } } },
+          x: { ticks: { font: { size: 9 }, autoSkip: false, maxRotation: 60, minRotation: 45 } }
+        }
+      }
+    });
+  }
+
+  // Amortization table
+  let amortRows = '<thead><tr><th>Fecha</th><th>Estado</th><th class="num">Pago MXN</th><th class="num">Saldo restante (proy.)</th></tr></thead><tbody>';
+  let runningTotal = data.banbajioPagos.reduce((s, p) => s + p.monto, 0);
+  data.banbajioPagos.forEach((p, i) => {
+    const d = new Date(p.fecha + 'T00:00:00');
+    const isPast = d < today;
+    const status = isPast ? '<span style="color:var(--text-muted)">○ Pagado</span>' : (i === 0 || data.banbajioPagos.findIndex(x => new Date(x.fecha+'T00:00:00') >= today) === i ? '<span style="color:var(--primary);font-weight:700">● Próximo</span>' : '<span style="color:var(--text-faint)">○ Programado</span>');
+    amortRows += '<tr' + (isPast ? ' style="opacity:0.55"' : '') + '><td>' + d.toLocaleDateString('es-MX', {day:'2-digit', month:'short', year:'numeric'}) + '</td><td>' + status + '</td><td class="num" style="font-variant-numeric:tabular-nums">' + fmtMoney(p.monto) + '</td><td class="num" style="font-variant-numeric:tabular-nums;color:var(--text-muted)">' + fmtMoney(runningTotal) + '</td></tr>';
+    runningTotal -= p.monto;
+  });
+  amortRows += '</tbody>';
+  document.getElementById('amortTable').innerHTML = amortRows;
+}
+
+let tesoreriaInitialized = false;
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-tab="tesoreria"]');
+  if (btn && !tesoreriaInitialized) {
+    tesoreriaInitialized = true;
+    setTimeout(function() {
+      try { renderTesoreria(); } catch(err) { console.error('renderTesoreria error:', err); }
+    }, 80);
   }
 });
 
