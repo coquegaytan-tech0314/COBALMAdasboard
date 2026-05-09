@@ -2183,7 +2183,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 <div class="tab-content" id="tab-tesoreria">
   <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:8px">
     <h2 class="section-title" style="margin-bottom:0"><span class="accent-bar"></span> Tesorería — Liquidez y Crédito</h2>
-    <div style="font-size:0.78rem;color:var(--text-muted)">Actualizado: <span id="tesoreriaUpdated">30/04/2026</span></div>
+    <div style="font-size:0.78rem;color:var(--text-muted)">Actualizado: <span id="tesoreriaUpdated">08/05/2026</span></div>
   </div>
 
   <div class="kpi-grid" id="tesoreriaKpis"></div>
@@ -7246,14 +7246,15 @@ document.addEventListener('click', function(e) {
 
 // ===== TESORERÍA TAB =====
 const tesoreriaData = {
-  updated: '30/04/2026',
+  updated: '08/05/2026',
+  inversionMonex: 292421.00,
   bancos: [
-    { name: 'BBVA', tipo: 'Cuenta operativa', saldo: 85733.54 },
-    { name: 'BANBAJIO', tipo: 'Cuenta operativa', saldo: 213559.64 },
-    { name: 'MONEX', tipo: 'Inversión diaria', saldo: 0 }
+    { name: 'BBVA', tipo: 'Cuenta operativa', saldo: 420097.62 },
+    { name: 'BANBAJIO', tipo: 'Cuenta operativa', saldo: 1970.84 },
+    { name: 'MONEX', tipo: 'Inversión diaria', saldo: 292421.00 }
   ],
   bancosUSD: [
-    { name: 'USD MONEX', saldo: 0 },
+    { name: 'USD MONEX', saldo: 30004.34 },
     { name: 'USD BANBAJIO', saldo: 0 }
   ],
   compromisos: [
@@ -7261,12 +7262,11 @@ const tesoreriaData = {
     { dia: '15 de cada mes', concepto: 'Pago Volvo', monto: 29790.00 }
   ],
   creditLines: [
-    { name: 'BANBAJIO Revolvente', limit: 1500000, used: 1065942.09, color: '#A84B2F' },
-    { name: 'MONEX Revolvente', limit: 1600000, used: 808182.91, color: '#1B474D' },
-    { name: 'BANBAJIO Crédito Simple', limit: 122222.16, used: 122222.16, color: '#6B6A65', note: 'Saldo en crédito (sin línea revolvente)' }
+    { name: 'BANBAJIO Revolvente', limit: 1500000, used: 670485.88, color: '#A84B2F' },
+    { name: 'MONEX Revolvente', limit: 1600000, used: 915568.35, color: '#1B474D' },
+    { name: 'BANBAJIO Crédito Simple', limit: 66666.60, used: 66666.60, color: '#6B6A65', note: 'Saldo restante de crédito (sin línea revolvente)' }
   ],
   banbajioPagos: [
-    { fecha: '2026-05-08', monto: 72888.39 },
     { fecha: '2026-06-10', monto: 73241.56 },
     { fecha: '2026-07-13', monto: 72399.37 },
     { fecha: '2026-08-15', monto: 71041.00 },
