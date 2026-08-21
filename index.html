@@ -1258,7 +1258,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 
 <!-- ===== VENTAS TAB ===== -->
 <div class="tab-content" id="tab-ventas">
-  <div class="section-title">Ventas — Enero 2023 a Julio 2026</div>
+  <div class="section-title">Ventas — Enero 2023 a Agosto 2026 (parcial al 21-ago)</div>
   <div class="insight-banner positive">
     <span class="insight-icon">🆕</span>
     <span><strong>Actualizado 21-ago-2026 · Nube SICAR (todas las sucursales).</strong> Inventario: <strong>60 SKUs con existencia</strong> · <strong>122,885 kg</strong> · <strong>$8.46M a venta / $5.82M al costo</strong>. Ventas Feb–21-ago-2026 (todas las sucursales, todo el volumen es TIENDA BEDOLLA COBALMA; CUAMIO PLANTA $0): <strong>$53.82M</strong> — Feb $0.35M · Mar $9.62M · Abr $12.48M · May $7.84M · Jun $11.42M · Jul $3.70M · Ago (al 21) $8.41M. Cartera por cobrar al <strong>07-jul-26</strong>: $28.09M en 27 clientes (dato no actualizado — falta CxC nueva).</span>
@@ -2621,7 +2621,7 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
   </div>
 
   <div style="background:#fef9c3;border-left:4px solid #eab308;padding:14px 18px;border-radius:8px;font-size:0.9rem;color:#713f12">
-    <b>Cómo se integra:</b> Los cifras totales de este período ya están reflejadas en las demás pestañas — Dashboard (chart de ingresos mensuales con Jun completo $11.42M y Jul parcial $811K), Ventas (banner actualizado + chart), CRM (total cartera $28.09M al 07-jul). Esta pestaña sirve como drill-down documento-por-documento y como base para reconciliación.
+    <b>Cómo se integra:</b> Las cifras totales de este período ya están reflejadas en las demás pestañas — Dashboard (chart de ingresos mensuales con Jul cierre $3.70M y Ago parcial $8.41M al 21-ago), Ventas (banner actualizado + chart), CRM (total cartera $28.09M al 07-jul, sin recalcular). Esta pestaña sirve como drill-down documento-por-documento y como base para reconciliación.
   </div>
 </div>
 
@@ -6099,7 +6099,7 @@ const monthlyRevenueData = [
   {mes:'2026-07',ventas:3702813.7,txns:20,clientes:13},
   {mes:'2026-08',ventas:8412043.2,txns:null,clientes:null}
 ];
-const revMonthNames = {'2023-01':'Ene 23','2023-02':'Feb 23','2023-03':'Mar 23','2023-04':'Abr 23','2023-05':'May 23','2023-06':'Jun 23','2023-07':'Jul 23','2023-08':'Ago 23','2023-09':'Sep 23','2023-10':'Oct 23','2023-11':'Nov 23','2023-12':'Dic 23','2024-01':'Ene 24','2024-02':'Feb 24','2024-03':'Mar 24','2024-04':'Abr 24','2024-05':'May 24','2024-06':'Jun 24','2024-07':'Jul 24','2024-08':'Ago 24','2024-09':'Sep 24','2024-10':'Oct 24','2024-11':'Nov 24','2024-12':'Dic 24','2025-01':'Ene 25','2025-02':'Feb 25','2025-03':'Mar 25','2025-04':'Abr 25','2025-05':'May 25','2025-06':'Jun 25','2025-07':'Jul 25','2025-08':'Ago 25','2025-09':'Sep 25','2025-10':'Oct 25','2025-11':'Nov 25','2025-12':'Dic 25','2026-01':'Ene 26','2026-02':'Feb 26','2026-03':'Mar 26','2026-04':'Abr 26','2026-05':'May 26','2026-06':'Jun 26','2026-07':'Jul 26*'};
+const revMonthNames = {'2023-01':'Ene 23','2023-02':'Feb 23','2023-03':'Mar 23','2023-04':'Abr 23','2023-05':'May 23','2023-06':'Jun 23','2023-07':'Jul 23','2023-08':'Ago 23','2023-09':'Sep 23','2023-10':'Oct 23','2023-11':'Nov 23','2023-12':'Dic 23','2024-01':'Ene 24','2024-02':'Feb 24','2024-03':'Mar 24','2024-04':'Abr 24','2024-05':'May 24','2024-06':'Jun 24','2024-07':'Jul 24','2024-08':'Ago 24','2024-09':'Sep 24','2024-10':'Oct 24','2024-11':'Nov 24','2024-12':'Dic 24','2025-01':'Ene 25','2025-02':'Feb 25','2025-03':'Mar 25','2025-04':'Abr 25','2025-05':'May 25','2025-06':'Jun 25','2025-07':'Jul 25','2025-08':'Ago 25','2025-09':'Sep 25','2025-10':'Oct 25','2025-11':'Nov 25','2025-12':'Dic 25','2026-01':'Ene 26','2026-02':'Feb 26','2026-03':'Mar 26','2026-04':'Abr 26','2026-05':'May 26','2026-06':'Jun 26','2026-07':'Jul 26','2026-08':'Ago 26*'};
 const totalVentasGeneral = 144624353.73;
 const totalCxCGeneral = 28085049.13;
 
@@ -6330,13 +6330,13 @@ function openDrilldown(catName) {
 
   // Revenue KPIs
   const revenueKpis = [
-    {label:'Julio 2026 (parcial 1-7) <span class="kpi-badge">Al 07-jul</span>',value:'$811,692',sub:'20 documentos • 13 clientes • Falta 08-17 jul del SICAR',cls:'highlight-month'},
-    {label:'Junio 2026 (cierre) <span class="kpi-badge">Jun 26</span>',value:'$11,415,118',sub:'119 documentos • 40 clientes • SICAR Rep. General',cls:'highlight-month'},
-    {label:'Récord Histórico Mensual <span class="kpi-badge">Abr 26</span>',value:'$12.19M',sub:'Mejor mes en histórico • +27% vs Mar 2026',cls:'success-accent'},
-    {label:'Ventas Totales',value:fmtMoney(totalVentasGeneral),sub:'Ene 2023 — Jul 2026 • Jul parcial al 07-jul',cls:'accent'},
+    {label:'Agosto 2026 (parcial al 21-ago) <span class="kpi-badge">Al 21-ago</span>',value:'$8,412,043',sub:'Nube SICAR todas sucursales • 21 días transcurridos',cls:'highlight-month'},
+    {label:'Julio 2026 (cierre) <span class="kpi-badge">Jul 26</span>',value:'$3,702,814',sub:'Cierre mensual completo • Nube SICAR',cls:'highlight-month'},
+    {label:'Junio 2026 (cierre) <span class="kpi-badge">Jun 26</span>',value:'$11,418,812',sub:'Cierre mensual completo • Nube SICAR',cls:'highlight-month'},
+    {label:'Récord Histórico Mensual <span class="kpi-badge">Abr 26</span>',value:'$12,484,204',sub:'Mejor mes en histórico • +30% vs Mar 2026',cls:'success-accent'},
+    {label:'Ventas Totales',value:fmtMoney(totalVentasGeneral),sub:'Ene 2023 — 21-ago 2026 • Ago parcial',cls:'accent'},
     {label:'Cuentas por Cobrar',value:fmtMoney(totalCxCGeneral),sub:'27 clientes • Corte SICAR 07-jul-2026',cls:'warning-accent'},
-    {label:'Clientes Activos',value:'27',sub:'Con saldo al 07-jul-2026',cls:'success-accent'},
-    {label:'Top Deudor <span class="kpi-badge">72.7%</span>',value:'$20.41M',sub:'TEJIDOS GAYTAN • +$7.1M vs 21-jun',cls:'warning-accent'}
+    {label:'Top Deudor <span class="kpi-badge">72.7%</span>',value:'$20.41M',sub:'TEJIDOS GAYTAN • corte 07-jul-2026',cls:'warning-accent'}
   ];
   const kgKpis = [
     {label:'Total Kg Vendidos',value:fmtN(totalKg,0),sub:'Oct 2024 — Mar 2026',cls:'accent'},
