@@ -1,0 +1,31 @@
+# Tracking 2026.xlsx — Dropbox extract 2026-08-27
+# path: /COBALMA/CONTENEDORES/2026/Tracking 2026.xlsx
+# server_modified: 2026-08-27T22:29:04Z (~4:29pm Mexico)
+# last_modifier: Diana Pichardo
+# size: 37391 bytes
+# NOTE: Excel was NOT edited. Read-only extract via Dropbox fetch for COBALMA-KPI Contenedores patch.
+
+## Diff vs live dashboard Contenedores (banner 26-ago 17:23 / commit 3e86b78)
+
+Live Hoja1 said 2026-6 and 2026-7 Recibido $0 / Anticipo proveedor, impuestos —.
+New file Hoja1 + sheet 2026:
+- 2026-6: sheet ETA 30-Aug; Hoja1 ETA 27-Aug; RECEIVED PAYMENT now $49,367.27 (full TOTAL); IMPUESTOS $450,663.00; comment still ANTICIPO PROVEEDOR
+- 2026-7: sheet ETA 30-Aug; Hoja1 ETA 27-Aug; RECEIVED PAYMENT now $47,437.73 (full TOTAL); IMPUESTOS $434,268.00; comment still ANTICIPO PROVEEDOR
+- S260424B-2, ZI26051449CH-2, ZW26071402CH unchanged vs prior
+- Still 59 PI lines (No.1–60, sin 38); Hoja1 still 5 rows; Cuenta aduanera 16 constancias; Cuentas de gastos ~43 rows
+- New Hoja1 received sum ≈ $140,720.20; prior live banner received $43,915 / saldo pendiente $150,687
+
+## Hoja1 (attention) — as extracted
+
+S260424B-2 | 75/72/2 | qty 24480 | total $33,782.40 | ETA 20-Aug | recv $7,000 | bal $26,782.40 | bal MXN $508,865.60 | EN ESPERA DE QUE TOQUE PISO
+2026-6 | OLIMPICA | qty 20399.7 | total $49,367.27 | ETA 27-Aug (sheet 2026: 30-Aug) | recv $49,367.27 | bal USD field $937,978.21 | impuestos $450,663 | ANTICIPO PROVEEDOR
+2026-7 | OLIMPICA | qty 19521.7 | total $47,437.73 | ETA 27-Aug (sheet 2026: 30-Aug) | recv $47,437.73 | bal USD field $901,316.89 | impuestos $434,268 | ANTICIPO PROVEEDOR
+ZI26051449CH-2 | 75/72 | qty 24480 | total $33,415.20 | ETA 4-Sep | recv $7,000 | bal $26,415.20 | bal MXN $501,888.80 | ESPERA DE DOCUMENTOS
+ZW26071402CH | 150/144 | qty 24480 | total $30,600.00 | ETA 4-Sep | recv $29,915.20 | bal $684.80 | bal MXN $13,011.20 | ESPERA DE DOCUMENTOS
+
+## Sheet 2026 — PI 60 C260819P (unchanged structure)
+
+C260819P | 150/48 NIM NEGRO 16000@$1.35 + 150/48/2 HIM NEGRO 8000@$1.41 | total $32,880 | no ETA yet
+
+## Instruction for Perplexity Computer
+Surgical Contenedores-only patch on EXISTING dashboard. Update allContData / Hoja1 banner from this extract. Prefer sheet "2026" ETA (30-Aug) over Hoja1 (27-Aug) for 2026-6/7 as before. Do not invent cartera. Do not rebuild.
