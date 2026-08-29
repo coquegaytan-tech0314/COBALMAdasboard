@@ -1,0 +1,34 @@
+# Tracking 2026.xlsx — Dropbox extract 2026-08-28
+# path: /COBALMA/CONTENEDORES/2026/Tracking 2026.xlsx
+# server_modified: 2026-08-28T21:13:40Z (~3:13pm Mexico)
+# client_modified: 2026-08-28T21:13:36Z
+# last_modifier: Diana Pichardo
+# size: 37379 bytes (was 37391 on 27-ago)
+# NOTE: Excel was NOT edited. Read-only extract via Dropbox fetch for COBALMA-KPI Contenedores patch.
+
+## Diff vs live dashboard Contenedores (banner 27-ago 16:29 / commit 4a26898)
+
+Live Hoja1 + banner said 2026-6 and 2026-7 anticipo 100% (recibido = total $49,367.27 / $47,437.73), impuestos $450,663 / $434,268, ETA 30-ago.
+New file sheet "2026":
+- 2026-6: ETA 30-Aug; RECEIVED PAYMENT now $12,987.33 (was full $49,367.27 on 27-ago extract); BALANCE PAYMENT $36,379.94; BALANCE PESOS $691,218.94; IMPUESTOS $450,663.00 still
+- 2026-7: ETA 30-Aug; RECEIVED still $47,437.73; balance field messy ($901,316.89 looks like pesos); IMPUESTOS $434,268.00
+- Hoja1 still shows 2026-6/7 with full received $49,367.27 / $47,437.73 and comment ANTICIPO PROVEEDOR (Excel inconsistency — prefer sheet "2026" as source of truth for payment status)
+- Hoja1 ETA still 27-Aug for 2026-6/7; sheet 2026 ETA 30-Aug (same inconsistency as before)
+- S260424B-2, ZI26051449CH-2, ZW26071402CH unchanged on Hoja1
+- Still 59 PI lines (No.1–60, sin 38); Hoja1 still 5 rows; Cuenta aduanera 16 constancias; Cuentas de gastos ~43 rows
+- C260819P unchanged (no ETA)
+
+## Hoja1 (attention) — as extracted 28-ago
+
+S260424B-2 | 75/72/2 | qty 24480 | total $33,782.40 | ETA 20-Aug | recv $7,000 | bal $26,782.40 | bal MXN $508,865.60 | EN ESPERA DE QUE TOQUE PISO
+2026-6 | OLIMPICA | qty 20399.7 | total $49,367.27 | ETA 27-Aug (sheet 2026: 30-Aug) | recv $49,367.27 (Hoja1) / sheet 2026 recv $12,987.33 bal $36,379.94 | impuestos $450,663 | ANTICIPO PROVEEDOR
+2026-7 | OLIMPICA | qty 19521.7 | total $47,437.73 | ETA 27-Aug (sheet 2026: 30-Aug) | recv $47,437.73 | impuestos $434,268 | ANTICIPO PROVEEDOR
+ZI26051449CH-2 | 75/72 | qty 24480 | total $33,415.20 | ETA 4-Sep | recv $7,000 | bal $26,415.20 | bal MXN $501,888.80 | ESPERA DE DOCUMENTOS
+ZW26071402CH | 150/144 | qty 24480 | total $30,600.00 | ETA 4-Sep | recv $29,915.20 | bal $684.80 | bal MXN $13,011.20 | ESPERA DE DOCUMENTOS
+
+## Sheet 2026 — material change
+
+2026-6 RECEIVED PAYMENT changed from full $49,367.27 → $12,987.33 (balance $36,379.94 / $691,218.94 MXN). Impuestos unchanged $450,663. Prefer sheet 2026 over Hoja1 for payment figures.
+
+## Instruction for Perplexity Computer
+Surgical Contenedores patch on EXISTING dashboard. Update allContData / Hoja1 banner from this extract. Prefer sheet "2026" for 2026-6 payment ($12,987.33 recv / $36,379.94 bal) and ETA 30-Aug. Note Hoja1 still shows full anticipo — patch banner to reflect sheet 2026 truth. Do not invent cartera. Do not rebuild.
