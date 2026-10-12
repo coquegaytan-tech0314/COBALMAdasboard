@@ -1658,12 +1658,12 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
   <div class="grid-2" style="margin-top:20px">
     <div class="card">
       <h3 style="margin-bottom:4px">Precios Cono Chico (con IVA)</h3>
-      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:12px">Lista 01-Oct-2026 • Solo productos con presentación cono chico</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:12px">Lista 07-Oct-2026 • Solo productos con presentación cono chico</p>
       <div class="table-scroll"><table class="data-table" id="conoChicoTable"></table></div>
     </div>
     <div class="card">
       <h3 style="margin-bottom:4px">Descuentos por Volumen</h3>
-      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:12px">Descuentos aplicables sobre precio Cono Grande • Lista 01-Oct-2026</p>
+      <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:12px">Descuentos aplicables sobre precio Cono Grande • Lista 07-Oct-2026</p>
       <div class="table-scroll"><table class="data-table" id="descuentosTable"></table></div>
     </div>
   </div>
@@ -5176,16 +5176,16 @@ function openDrilldown(catName) {
   const conoChicoTbl = document.getElementById('conoChicoTable');
   if (conoChicoTbl) {
     const conoChicoData = [
-      {name:'Texturizado Negro 150/48',precio:56.84},
-      {name:'Texturizado Blanco 150/48',precio:69.60},
-      {name:'Texturizado Claros 150/48',precio:77.72},
-      {name:'Texturizado Obscuros 150/48',precio:83.52},
-      {name:'Texturizado Negro 300/96',precio:55.68},
-      {name:'Compactado Negro 150/48',precio:58.00},
+      {name:'Texturizado Negro 150/48',precio:61.48},
+      {name:'Texturizado Blanco 150/48',precio:73.08},
+      {name:'Texturizado Claros 150/48',precio:81.20},
+      {name:'Texturizado Obscuros 150/48',precio:87.00},
+      {name:'Texturizado Negro 300/96',precio:60.32},
+      {name:'Compactado Negro 150/48',precio:62.64},
       {name:'Compactado Negro 150/48/2',precio:56.84},
-      {name:'Compactado Crudo 150/48',precio:54.52},
-      {name:'Compactado Crudo 150/48/2',precio:56.84},
-      {name:'Texturizado Crudo 150/48',precio:54.52}
+      {name:'Compactado Crudo 150/48',precio:59.16},
+      {name:'Compactado Crudo 150/48/2',precio:60.32},
+      {name:'Texturizado Crudo 150/48',precio:58.00}
     ];
     let html = '<thead><tr><th style="text-align:left">Producto</th><th>Cono Grande</th><th>Cono Chico</th><th>Diferencia</th></tr></thead><tbody>';
     conoChicoData.forEach(c => {
